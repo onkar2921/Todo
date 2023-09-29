@@ -16,6 +16,7 @@ export default function Modal({ onClose, onTextChange, content, onCategory }) {
 
   const handelModalCreate = async () => {
     if (onCategory) {
+      console.log("category",content)
       createCategory(content);
     } else {
       try {

@@ -14,9 +14,10 @@ export default function CategoryContextProvider({ children }) {
   const [state, CategoryDispatch] = useReducer(CategoryReducer, initalCategory);
 
   const createCategory = async (content) => {
+    
     const response = await axios.post(
       `${process.env.REACT_APP_API_URI}/createCategory`,
-      { content },
+      { name:content },
       {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
