@@ -29,7 +29,9 @@ cloudinary.config({
 const userRoutes=require("./routes/userRoutes")
 const todoRoutes=require("./routes/todoRoutes")
 const categoryRoutes=require("./routes/categoryRoutes")
-
+app.get("/",(req,res)=>{
+    return res.send("hello")
+})
 app.use(userRoutes)
 app.use(todoRoutes)
 app.use(categoryRoutes)
