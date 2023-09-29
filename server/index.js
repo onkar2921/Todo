@@ -34,9 +34,7 @@ app.use(userRoutes)
 app.use(todoRoutes)
 app.use(categoryRoutes)
 
-app.use("/",(req,res)=>{
-    return res.send("hello")
-})
+
 
 
 app.listen(port ,()=>{
