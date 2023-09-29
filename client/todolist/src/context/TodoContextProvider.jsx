@@ -16,7 +16,12 @@ export default function TodoContextProvider({children}) {
   const getAllTodo=async()=>{
     try {
       // console.log("for uri",process.env.REACT_APP_API_URI)
-      const res=await axios.get(`${process.env.REACT_APP_API_URI}/getAllTodo`)
+      const res=await axios.get(`${process.env.REACT_APP_API_URI}/getAllTodo`,{
+        headers:{
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+          userId:localStorage.getItem("userId")
+        }
+      })
       if(res.status===200){
         TodoDispatch({type:"SETTODOS",payload:res.data.data})
       }
@@ -29,7 +34,12 @@ export default function TodoContextProvider({children}) {
   const deleteTodo=async(TodoId)=>{
   try {
 
-    const res=await axios.delete(`${process.env.REACT_APP_API_URI}/deleteTodo/${TodoId}`)
+    const res=await axios.delete(`${process.env.REACT_APP_API_URI}/deleteTodo/${TodoId}`,{
+      headers:{
+        authorization: `Bearer ${localStorage.getItem("token")}`,
+        userId:localStorage.getItem("userId")
+      }
+    })
     if(res.status===200){
       console.log("todo deleted sucessfully")
       getAllTodo()
@@ -44,7 +54,12 @@ export default function TodoContextProvider({children}) {
   const updateTodo=async(TodoId,content)=>{
     try {
   
-      const res=await axios.patch(`${process.env.REACT_APP_API_URI}/updateTodo/${TodoId}`,{content})
+      const res=await axios.patch(`${process.env.REACT_APP_API_URI}/updateTodo/${TodoId}`,{content},{
+        headers:{
+          authorization: `Bearer ${localStorage.getItem("token")}`,
+          userId:localStorage.getItem("userId")
+        }
+      })
       if(res.status===200){
         console.log("todo updated sucessfully")
         getAllTodo()
@@ -56,10 +71,15 @@ export default function TodoContextProvider({children}) {
     }
     }
 
-    const createTodo=async(content)=>{
+    const createTodo=async(content,category)=>{
       try {
     
-        const res=await axios.post(`${process.env.REACT_APP_API_URI}/createTodo`,{content})
+        const res=await axios.post(`${process.env.REACT_APP_API_URI}/createTodo`,{content,category},{
+          headers:{
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            userId:localStorage.getItem("userId")
+          }
+        })
         if(res.status===200){
           console.log("todo created sucessfully")
           getAllTodo()

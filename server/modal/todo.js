@@ -6,6 +6,11 @@ const TodoSchema=new mongoose.Schema({
         trim :true
     },
 
+    category:{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'category',
+    },
+
     user:{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'user',

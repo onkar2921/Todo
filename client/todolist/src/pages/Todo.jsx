@@ -1,75 +1,99 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { useEffect } from "react";
 import { TodoContext } from "../context/TodoContextProvider";
-import { useContext } from "react";
-export default function Todo() {
-  const { state, getAllTodo,deleteTodo ,updateTodo,createTodo} = useContext(TodoContext);
+import { categoryContext } from "../context/CategoryContextProvider";
 
+import Profile from "../components/Profile";
+import Modal from "../components/Modal";
+import Card from "../components/Card";
+
+
+export default function Todo() {
+
+  
+  const { state, getAllTodo } = useContext(TodoContext);
+  const {state:CategoryState,getUserCategory}=useContext(categoryContext)
+  // getUSerCategory
   useEffect(() => {
     getAllTodo();
+    getUserCategory()
+
   }, []);
 
 
 
-
-  const handelDelete=async(TodoId)=>{
-console.log("todoids",TodoId)
-    await deleteTodo(TodoId)
-
-  }
+  const [text, setText] = useState("");
 
 
-  const handelUpdate=async(TodoId,content)=>{
 
-        await updateTodo(TodoId,content)
-
-  }
-
-  const [text,setText]=useState("")
-  const [updateText,setUpdateText]=useState("")
+  const [open,setOpen]=useState(false)
 
 
-  const handelCreateTodo=async(content)=>{
-    try {
+  const [category,setCategory]=useState(false)
 
-        await createTodo(content)    
-        
-    } catch (error) {
-        console.log(error)
+
+const handelCreateCategoery=()=>{
+  setOpen(true)
+  setCategory(true)
+
     }
+
+
+  const handelCreateTodoModal=()=>{
+    setOpen(true)
+   setCategory(false)
+
   }
 
-//   console.log("state of todos", state?.todos);
   return (
     <>
-      <div>Todo</div>
 
-      <input type="text" name="content"  value={text} required placeholder="TODO" onChange={(e)=>{setText(e.target.value)}} />
 
-      <button onClick={()=>handelCreateTodo(text)}>Send</button>
+<div className="bg-gradient-to-r from-purple-900 via-pink-600 via-pink-400 to-white h-full w-full">
+    <Profile />
+</div>
 
-      <div>
+   
 
-           {
-             state?.todos?.map((item)=>{
-                return <>
-                <div key={item.id}>
+  
+    {open && <Modal onClose={setOpen} content={text} onTextChange={setText} onCategory={category} />}
 
-                <h1>{item?.content}</h1>
-              
-                <button onClick={()=>handelDelete(item?._id)}>delete</button>
-                <input type="text" name="content"  value={updateText} required placeholder="TODO UPDATE" onChange={(e)=>{setUpdateText(e.target.value)}} />
 
-                <button onClick={()=>handelUpdate(item?._id,updateText)}>update</button>
-                </div>
-                
-                </>
-                
-            })
-           }
+      <div className="h-full w-full flex items-center justify-center flex-col md:flex-row  ">
+      
 
+
+      <div className="w-full md:w-1/3 h-full   flex items-center justify-center flex-col border-b-2 md:border-r-2 md:border-b-0  ">
+        <button onClick={handelCreateCategoery} className="bg-black text-white rounded-md p-2 m-2">Create Category</button>
+        <button onClick={handelCreateTodoModal}  className="bg-black text-white rounded-md p-2 m-2">Create Todo</button>
       </div>
+     
+      
+     
+      <div className="h-full w-3/4 p-2 flex items-center justify-center">
+        
+      <div className=" p-2 m-2 flex flex-col items-center justify-center w-full h-full ">
+        {state?.todos?.map((item) => {
+          return ( 
+            <>
+              <div key={item._id} className=" flex items-center justify-center w-full h-full border-x-2 ">
+      <Card TODO={item?.content} ID={item?._id}></Card>
+               
+              </div>
+            </>
+          );
+        })}
+      </div>
+      
+      </div>
+      </div>
+
+
+     
+
+
+
     </>
   );
 }

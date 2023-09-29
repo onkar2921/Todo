@@ -4,9 +4,11 @@ const todo=require("../modal/todo")
 const createTodoController=async(req,res)=>{
     try {
 
-        const {user,content}=req.body
+        const {content,category}=req.body
 
-        const data=await todo.create({user,content})
+        const user=req.user
+
+        const data=await todo.create({user: user.exist?._id,content,category})
 
         if(data){
             return res.status(200).json({ message: "todo created",
@@ -24,7 +26,9 @@ const createTodoController=async(req,res)=>{
 const getAllTodoController=async(req,res)=>{
     try {
 
-        const data=await todo.find({}).populate("user")
+        const user=req.user
+
+        const data=await todo.find({user: user.exist?._id}).populate("user").populate("category")
 
         if(data){
             return res.status(200).json({message:"get all todos",data})
@@ -39,6 +43,7 @@ const deleteTodoController=async(req,res)=>{
     try {
 
         const {TodoId}=req.params
+        
 
         const data=await todo.findByIdAndDelete(TodoId)
 
