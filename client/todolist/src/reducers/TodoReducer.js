@@ -1,19 +1,20 @@
+export const TodoReducer = (state, action) => {
+  switch (action.type) {
+    case "SETTODOS":
+      return {
+        ...state,
+        todos: action.payload,
+      };
 
+    case "SETSPECIFICTODO":
+      return {
+        ...state,
+        specificCategoryTodo: action.payload,
+      };
 
-export const TodoReducer=(state,action)=>{
-    switch (action.type) {
-        case "SETTODOS":
-            return {
-                ...state,
-                todos:action.payload
-            }
-            
-            
-    
-        default:
-            return {
-                ...state
-            }
-          
-    }
-}
+    default:
+      return {
+        ...state,
+      };
+  }
+};

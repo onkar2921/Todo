@@ -9,7 +9,7 @@ export const CategoryReducer = (state, action) => {
         };
       });
 
-      console.log(Categories);
+     
       return {
         ...state,
         categories: Categories,

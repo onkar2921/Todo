@@ -34,11 +34,10 @@ export default function SignIn() {
     );
 
     if (response.status === 200) {
-      console.log("signIn ");
-      console.log("response of login", response.data?.exist[0]);
+    
       localStorage.setItem("token", response?.data?.token);
       localStorage.setItem("userId",response.data?.exist[0]?._id)
-
+alert("signIn")
       setDetail({ name: "", email: "", password: "" });
       userDispatch({
         type: "SETUSER",
@@ -50,7 +49,9 @@ export default function SignIn() {
         },
       });
       navigate("/");
-    } else {
+      
+    } 
+    else {
       console.log("error in signIn");
     }
   };

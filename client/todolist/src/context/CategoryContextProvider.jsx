@@ -45,7 +45,7 @@ export default function CategoryContextProvider({ children }) {
       );
 
       if (response.status === 200) {
-        // console.log(response.data.data)
+       
         CategoryDispatch({
           type: "SETCATEGORY",
           payload: response?.data?.data,
@@ -56,10 +56,34 @@ export default function CategoryContextProvider({ children }) {
     }
   };
 
+
+  const deleteCategory=async(categoryId)=>{
+    try {
+
+      const response=await axios.delete(
+        `${process.env.REACT_APP_API_URI}/deleteCategory/${categoryId}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            userId: localStorage.getItem("userId"),
+          },
+        }
+      );
+
+      if (response.status === 200) {
+      getUserCategory()
+      
+      }
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <categoryContext.Provider
-        value={{ state, CategoryDispatch, createCategory, getUserCategory }}
+        value={{ state, CategoryDispatch, createCategory, getUserCategory,deleteCategory }}
       >
         {children}
       </categoryContext.Provider>

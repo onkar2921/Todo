@@ -18,14 +18,14 @@ export default function Auth() {
   return (
     <>
       <div className="flex w-full h-[100vh] bg-black  items-center justify-center">
-        <div className="flex w-[60%] h-[60%] bg-white">
-          <div className="w-1/2 h-full flex bg-pink-300 ">    </div>
+        <div className="flex w-[60%] h-[50%] bg-white">
+          <div className="w-1/2 h-full md:flex bg-pink-300 ">    </div>
           <div className="w-1/2 h-full flex items-center justify-center flex-col">
-            <div className="flex  cursor-pointer hover:text-red-500 items-center ">
+            <div className="flex  cursor-pointer hover:text-red-500 items-center  justify-center">
               {toggle ? (
-                <h1 onClick={toggleForm}> already a member</h1>
+                <h1  className="ml-2 mb-2"  onClick={toggleForm}> already a member</h1>
               ) : (
-                <h1 onClick={toggleForm}> create a account</h1>
+                <h1 className="ml-2" onClick={toggleForm}> create a account</h1>
               )}
             </div>
 

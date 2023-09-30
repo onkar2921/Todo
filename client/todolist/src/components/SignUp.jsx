@@ -30,8 +30,7 @@ export default function SignUp(props) {
     );
 
     if (response.status === 200) {
-      console.log("signUP ");
-      console.log("response of login", response);
+      alert("signUp")
       setDetail({ name: "", email: "", password: "" });
       props.toggleForm();
     } else {

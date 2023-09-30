@@ -13,6 +13,7 @@ const getUserDetail=async(req,res)=>{
      
         const data=await user.findById(User.exist?._id)
         if(data){
+            
             return res.status(200).json({message:"getting user",data})
         }
         return res.status(500).json({message:"failed in getting user"})
@@ -110,26 +111,19 @@ const addAvatarController=async(req,res)=>{
     try {
 
         const User=req.user
-        // User.exist?._id
-        const avatar= req?.files
+        const {avatar}=req.body
         console.log("avatrt from front",avatar)
-        if(avatar){
-         const data=await cloudinary.uploader.upload(avatar,{
-             upload_preset:"todolist"
-         })
-         
+       
 
-         console.log("cloudianary data---",data)
-         if(data){
+      
              const userAvatarUpdate=await user.findByIdAndUpdate(User.exist?._id,{avatar},{new:true})
              
              if(userAvatarUpdate){
                  return res.status(200).json({message:"user avatar added",userAvatarUpdate})
                 }
                 return res.status(500).json({message:"failed in updation of use avatar"})
-            }
-        }
-        
+            
+    
     } catch (error) {
         console.log(error)
     }
