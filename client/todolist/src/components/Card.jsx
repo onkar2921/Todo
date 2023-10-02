@@ -21,12 +21,18 @@ export default function Card({ TODO, ID }) {
   // const [time, setTime] = useState('');
 
   const handleUpdate = async (TodoId, content) => {
-    await updateTodo(TodoId, content);
-    setUpdateText("")
+   const data= await updateTodo(TodoId, content);
+if(data){
+alert("Todo updated")
+  setUpdateText("")
+}
   };
 
   const handleDelete = async (TodoId) => {
-    await deleteTodo(TodoId);
+   const data= await deleteTodo(TodoId);
+   if(data){
+    alert("todo deleted")
+   }
   };
 
 

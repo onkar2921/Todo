@@ -45,7 +45,9 @@ export default function TodoContextProvider({ children }) {
       );
       if (res.status === 200) {
         console.log("todo deleted sucessfully");
+        
         getAllTodo();
+        
       }
       console.log("failed in deleting todo");
     } catch (error) {
@@ -88,10 +90,12 @@ export default function TodoContextProvider({ children }) {
         }
       );
       if (res.status === 200) {
-        console.log("todo created sucessfully");
+        // console.log("todo created sucessfully");
+        alert("todo created")
         getAllTodo();
       } else {
-        console.log("failed in creating  todo");
+        alert("failed in creating  todo")
+        // console.log("failed in creating  todo");
       }
     } catch (error) {
       console.log(error);
@@ -112,6 +116,7 @@ export default function TodoContextProvider({ children }) {
       if (res.status === 200) {
         // console.log("getting specific category todos", res.data?.data);
         TodoDispatch({ type: "SETSPECIFICTODO", payload: res.data?.data });
+        alert("fetched todos")
       } else {
         console.log("failed in creating todo");
       }

@@ -44,6 +44,7 @@ export default function Profile() {
 
       const updateAvatar=await updateUserAvatar(response.data.url)
       if(updateAvatar){
+        alert("profile photo updated")
         setAvatar(null)
       }
 

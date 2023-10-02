@@ -27,7 +27,7 @@ export default function CategoryContextProvider({ children }) {
     );
 
     if (response.status === 200) {
-   
+      alert("category created")
       getUserCategory();
     }
   };
@@ -71,6 +71,7 @@ export default function CategoryContextProvider({ children }) {
       );
 
       if (response.status === 200) {
+        alert("category deletd")
       getUserCategory()
       
       }
